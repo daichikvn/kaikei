@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/cost/cost_form.css' %}">
+<link rel="stylesheet" href="https://fengyuanchen.github.io/datepicker/css/datepicker.css">
+{% endblock %}
+{% block content %}
+<div class="form_contents">
+    <h1 class="form_title">経費入力</h1>
+    <form action="" method="POST">
+        {{ form.non_field_errors }}
+        <div class="field">
+            <p>{{ form.date.label }}</p>
+            {{ form.date }}
+            {{ form.date.errors }}
+        </div>
+        <div class="field">
+            <p>{{ form.shop.label }}</p>
+            {{ form.shop }}
+            {{ form.shop.errors }}
+        </div>
+        <div class="field">
+            <p>
+                {{ form.price.label }}
+                <span class="helptext"><i class="fas fa-exclamation-circle"></i> {{ form.price.help_text }}</span>
+            </p>
+            {{ form.price }}
+            <!-- <p>
+                <span id="tax-included"></span>
+            </p> -->
+            {{ form.price.errors }}
+        </div>
+        <div class="field">
+            <p>{{ form.memo.label }}(任意)</p>
+            {{ form.memo }}
+            {{ form.memo.errors }}
+        </div>
+        <div class="field submit_btn">
+            <button type="submit">送信</button>
+        </div>
+        {% csrf_token %}
+    </form>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://fengyuanchen.github.io/datepicker/js/datepicker.js"></script>
+<script src="https://fengyuanchen.github.io/datepicker/js/datepicker.ja-JP.js"></script>
+{% endblock %}
+{% block script %}
+<script>
+    $('#id_date').datepicker({
+        format: 'yyyy-mm-dd',
+        // language: 'ja-JP',
+    });
+
+    // $(function() {
+    //     var input=$("#id_price"),tax=1.10,taxIncluded=$("#tax-included");
+    //     input.on("input",function(){
+    //         taxIncluded.text(Math.floor($(this).val() * tax));//税込み・切り捨て
+    //     });
+    // });
+</script>
+{% endblock %}

@@ -1,0 +1,43 @@
+.menus {
+    width: 50%;
+}
+.menus_up, .menus_down {
+    width: 100%;
+    display: flex;
+}
+.menu {
+    width: 50%;
+    height: 170px;
+    text-align: center;
+    position: relative;
+    font-weight: bold;
+    font-size: 20px;
+}
+.cost {
+    background-color: #00348f;
+    color: #fff;
+}
+.sales {
+    background-color: #727d8f;
+    color: #fff;
+}
+.payment {
+    background-color: #39598f;
+    color: #fff;
+}
+.client {
+    background-color: #566b8f;
+    color: #fff;
+}
+.icon {
+    display: inline-block;
+    font-size: 70px;
+    margin: 30px 0 10px;
+}
+.menu a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height:100%;
+    width: 100%;
+}

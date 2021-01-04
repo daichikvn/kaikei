@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/accounts/signup.css' %}">
+<link rel="stylesheet" href="{% static 'css/accounts/signup_rwd.css' %}">
+{% endblock %}
+{% block content %}
+<section class="common-form">
+    <form method="post">
+        {{ form.non_field_errors }}
+        <div class="input-group form-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div>
+            <input type="text" class="form-control" name="username" maxlength="150" autofocus="" placeholder="ユーザー名" required="" id="id_username">
+        </div>
+        {{ form.username.errors }}
+        <div class="input-group form-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-lock"></i></span>
+            </div>
+            <input type="password" class="form-control" name="password1" placeholder="パスワード" required="" id="id_password1">
+        </div>
+        {{ form.password1.error }}
+        <div class="input-group form-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-lock"></i></span>
+            </div>
+            <input type="password" class="form-control" name="password2" placeholder="パスワード(再入力)" required="" id="id_password2">
+        </div>
+        {{ form.password2.error }}
+        <div class="input-group form-group">
+            <button type="submit" class="submit_btn">会員登録</button>
+        </div>
+        {% csrf_token %}
+    </form>
+</section>
+{% endblock %}

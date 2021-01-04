@@ -1,0 +1,28 @@
+@media screen and (max-width: 959px) {
+    .rireki_contents {
+        padding: 30px 0;
+        display: block;
+        overflow-x: scroll;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+    .clientList_title {
+        font-size: 22px;
+    }
+    table th,table td{
+        padding: 10px 10px;
+    }
+    table td:nth-child(1){
+        padding: 10px 10px;
+    }
+    table td:nth-child(1):after{
+        display: none;
+    }
+    .form-control {
+        width: auto;
+    }
+    .new_btn {
+        right: -20px;
+        bottom: -20px;
+    }
+}

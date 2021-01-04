@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/cost/done.css' %}">
+<link rel="stylesheet" href="{% static 'css/cost/done_rwd.css' %}">
+{% endblock %}
+{% block content %}
+<div class="done_content">
+    <div class="done_contents">
+        <h3><i class="fas fa-server"></i>削除完了</h3>
+        <p><i class="fas fa-check-double"></i>データ削除が正常終了しました。</p>
+        <a href="{% url 'cost:cost_list' %}">履歴一覧へ</a><a href="{% url 'cost:index' %}">経費TOP</a>
+    </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+{% endblock %}
+{% block script %}
+{% endblock %}

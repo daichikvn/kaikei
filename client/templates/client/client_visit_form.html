@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/client/client_visit_form.css' %}">
+<link rel="stylesheet" href="https://fengyuanchen.github.io/datepicker/css/datepicker.css">
+{% endblock %}
+{% block content %}
+<div class="form_contents">
+    <h1 class="form_title">来店日・メニュー情報入力</h1>
+    <form action="" method="POST">
+        {{ form.non_field_errors }}
+        <div class="field">
+            <p>{{ form.visit_date.label }}</p>
+            {{ form.visit_date }}
+            {{ form.visit_date.errors }}
+        </div>
+        <div class="field">
+            <p>{{ form.menu.label }}(任意)</p>
+            {{ form.menu }}
+            {{ form.menu.errors }}
+        </div>
+        <div class="field submit_btn">
+            <button type="submit">送信</button>
+        </div>
+        {% csrf_token %}
+    </form>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://fengyuanchen.github.io/datepicker/js/datepicker.js"></script>
+<script src="https://fengyuanchen.github.io/datepicker/js/datepicker.ja-JP.js"></script>
+{% endblock %}
+{% block script %}
+<script>
+    $('#id_visit_date').datepicker({
+        format: 'yyyy-mm-dd',
+        // language: 'ja-JP',
+    });
+</script>
+{% endblock %}

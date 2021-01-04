@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/cost/done.css' %}">
+<link rel="stylesheet" href="{% static 'css/cost/done_rwd.css' %}">
+{% endblock %}
+{% block content %}
+<div class="done_content">
+    <div class="done_contents">
+        <h3><i class="fas fa-exclamation-triangle"></i>削除確認</h3>
+        <p>{{ object }} のデータを削除していいですか？</p>
+        <form method="post">
+            <button class="confirm_btn">削除する</button>
+            {% csrf_token %}
+        </form>
+    </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+{% endblock %}
+{% block script %}
+{% endblock %}

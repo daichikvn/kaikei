@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base_rwd.css' %}">
+    {% block extra_css %}{% endblock %}
+    <title>会計管理</title>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header_left">
+                {% if user.is_authenticated %}
+                <p class="logo"><a href="{% url 'accounts:index' %}">{{user.username}}様</a></p>
+                {% else %}
+                <p class="logo"><a href="">会計管理</a></p>
+                {% endif %}
+            </div>
+            <div class="header_right">
+                <ul>
+                    {% if user.is_authenticated %}
+                    <li><a href="{% url 'accounts:index' %}">利益</a></li>
+                    <li><a href="{% url 'cost:index' %}">経費</a></li>
+                    <li><a href="{% url 'sales:index' %}">売上</a></li>
+                    <li><a href="{% url 'accounts:payment' %}">支払い</a></li>
+                    <li><a href="{% url 'client:client_list' %}">顧客情報</a></li>
+                    <li><a href="{% url 'accounts:excel' %}">EXCEL</a></li>
+                    <li><a href="{% url 'logout' %}" class="logout">ログアウト</a></li>
+                    {% else %}
+                    <li><a href="{% url 'accounts:signup' %}" class="signup">会員登録</a></li>
+                    <li><a href="{% url 'login' %}" class="login">ログイン</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </header>
+        <header class="rwd_header">
+            <div id="nav-drawer">
+                <input id="nav-input" type="checkbox" class="nav-unshown">
+                <label id="nav-open" for="nav-input"><i class="fas fa-bars"></i></label>
+                <label class="nav-unshown" id="nav-close" for="nav-input"></label>
+                <div id="nav-content">
+                    <div class="header_left">
+                        <ul>
+                            <li class="nav_menu">メニュー</li>
+                            {% if user.is_authenticated %}
+                            <li><i class="fas fa-chart-line"></i> 利益<a href="{% url 'accounts:index' %}"></a></li>
+                            <li><i class="fas fa-cart-arrow-down"></i> 経費<a href="{% url 'cost:index' %}"></a></li>
+                            <li><i class="fas fa-comment-dollar"></i> 売上<a href="{% url 'sales:index' %}"></a></li>
+                            <li><i class="fas fa-university"></i> 支払い<a href="{% url 'accounts:payment' %}"></a></li>
+                            <li><i class="fas fa-user-circle"></i> 顧客情報<a href="{% url 'client:client_list' %}"></a></li>
+                            <li><i class="far fa-file-excel"></i> EXCEL<a href="{% url 'accounts:excel' %}"></a></li>
+                            <li><i class="fas fa-sign-out-alt"></i> ログアウト<a href="{% url 'logout' %}"></a></li>
+                            {% else %}
+                            <li><i class="fas fa-user-plus"></i> 会員登録<a href="{% url 'accounts:signup' %}"></a></li>
+                            <li><i class="fas fa-sign-in-alt"></i> ログイン<a href="{% url 'login' %}"</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="header_right">
+                {% if user.is_authenticated %}
+                <p class="logo"><a href="{% url 'accounts:index' %}">{{user.username}}様</a></p>
+                {% else %}
+                <p class="logo"><a href="">会計管理</a></p>
+                {% endif %}
+            </div>
+        </header>
+        <div class="content">
+            {% block content %}{% endblock %}
+        </div>
+        <footer class="footer">
+            <p>©️ 2020 会計管理 All Rights Reserved.</p>
+        </footer>
+    </div>
+    {% block extra_js %}{% endblock %}
+    {% block script %}{% endblock %}
+</body>
+</html>

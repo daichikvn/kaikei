@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/sales/sales_list.css' %}">
+<link rel="stylesheet" href="{% static 'css/sales/sales_list_rwd.css' %}">
+{% endblock %}
+{% load utils %}
+{% block content %}
+<div class="rireki_contents">
+    <table id=table_list>
+        <thead>
+            <tr>
+                <th>ID <i class="fas fa-sort"></i></th>
+                <th>日付 <i class="fas fa-sort"></i></th>
+                <th>総売上 <i class="fas fa-sort"></i></th>
+                <th>ディナー(売上) <i class="fas fa-sort"></i></th>
+                <th>ランチ(売上) <i class="fas fa-sort"></i></th>
+                <th>フード(売上) <i class="fas fa-sort"></i></th>
+                <th>ドリンク(売上) <i class="fas fa-sort"></i></th>
+                <th>ドリンク(%) <i class="fas fa-sort"></i></th>
+                <th>ディナー(客) <i class="fas fa-sort"></i></th>
+                <th>ランチ(客) <i class="fas fa-sort"></i></th>
+                <th>総客数 <i class="fas fa-sort"></i></th>
+                <th>銀行入金額 <i class="fas fa-sort"></i></th>
+                <th>更新・削除</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for sales in object_list %}
+            <tr class="odd gradeX text-center">
+                <td>{{ sales.id}}</td>
+                <td>{{ sales.date}}</td>
+                <td><i class="fas fa-yen-sign"></i> {{ sales.total_sales }}</td>
+                <td><i class="fas fa-yen-sign"></i> {{ sales.total_sales | subtraction:sales.lunch_sales }}</td>
+                <td><i class="fas fa-yen-sign"></i> {{ sales.lunch_sales }}</td>
+                <td><i class="fas fa-yen-sign"></i> {{ sales.total_sales | subtraction:sales.drink_sales }}</td>
+                <td><i class="fas fa-yen-sign"></i> {{ sales.drink_sales }}</td>
+                {% with sales.drink_sales|percent:100 as percent_price %}
+                    <td>{{ percent_price | division:sales.total_sales }}%</td>
+                {% endwith %}
+                <td>{{ sales.dinner_guest }}人</td>
+                <td>{{ sales.lunch_guest }}人</td>
+                <td>{{ sales.dinner_guest | addition:sales.lunch_guest }}人</td>
+                <td><i class="fas fa-yen-sign"></i> {{ sales.bank_deposit }}人</td>
+                <td>
+                    <a class="update_btn" href="{% url 'sales:sales_update' sales.pk %}">更新</a>
+                    <a class="delete_btn" href="{% url 'sales:sales_delete' sales.pk %}">削除</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
+{% endblock %}
+{% block script %}
+<script>
+    jQuery(function($){
+        $.extend( $.fn.dataTable.defaults, {
+            language: {
+                    url: "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
+                }
+        });
+        $("#table_list").DataTable({
+            "searching": true,
+            "paging":   true,
+            "ordering": true,
+            "lengthChange": true,
+            "pageLength": 25,
+            "order": [[ 0, "desc" ]],
+        }).columns.adjust().draw();
+    });
+</script>
+{% endblock %}

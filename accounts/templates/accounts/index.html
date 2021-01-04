@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/accounts/index.css' %}">
+<link rel="stylesheet" href="{% static 'css/accounts/index_rwd.css' %}">
+<link rel="stylesheet" href="{% static 'css/menu.css' %}">
+<link rel="stylesheet" href="{% static 'css/menu_rwd.css' %}">
+{% endblock %}
+{% block content %}
+<div class="content_menu">
+    {% include 'menu.html' %}
+    <div class="dashbord">
+        <p class="dashbord_title">利益ダッシュボード ({{ this_month }}月)</p>
+        <div class="dashbord_content">
+            <ul>
+                <li><span>利益：</span><span class="dashbord_price"><i class="fas fa-yen-sign"></i>{{ gain | intcomma }}</span></li>
+                <li><span>フード原価率：</span><span class="dashbord_price">{{ food_rate | intcomma }}％</span></li>
+                <li><span>ドリンク原価率：</span><span class="dashbord_price">{{ drink_rate | intcomma }}％</span></li>
+            </ul>
+        </div>
+        <div class="form_contents">
+            <div class="btn_list">
+                <a class="submit_btn" href="{% url 'accounts:index' %}?param=previous&year={{ this_year }}&month={{ this_month }}"><< {{ previous_month }}月</a>
+                <a class="accounts_btn" href="{% url 'accounts:index' %}?param=param&year={{ this_year }}&month={{ this_month }}">{{ this_month }}月</a>
+                <a class="submit_btn" href="{% url 'accounts:index' %}?param=next&year={{ this_year }}&month={{ this_month }}">{{ next_month }}月 >></a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="line_chart_content">
+    <p class="line_chart_title">{{ this_year }}年度 売上・経費月別推移</p>
+    <canvas id='LineChart' class="line_chart"></canvas>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+{% endblock %}
+{% block script %}
+<script>
+    var ctx = document.getElementById("LineChart").getContext('2d');
+    var DiskChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels:["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
+            datasets:[
+                {
+                    label: "経費",
+                    data:[
+                    {% for yyyy_mm, total in cost_matrix_list %}
+                        {{total}},
+                    {% endfor %}
+                    ],
+                    backgroundColor: "rgba(220, 20, 60, 0.8)"
+                },
+                {
+                    label: "売上",
+                    data:[
+                    {% for yyyy_mm, total in sales_matrix_list %}
+                        {{total}},
+                    {% endfor %}
+                    ],
+                    backgroundColor: "rgba(65, 105, 225, 0.8)"
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: '{{ this_year }}年'
+                    },
+                    ticks: {
+                        maxRotation:0,
+                        minRotation:0
+                    },
+                }],
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: '金額(円)'
+                    },
+                    ticks:{
+                        min: 0,
+                    }
+                }],
+            },
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/sales/sales_form.css' %}">
+<link rel="stylesheet" href="https://fengyuanchen.github.io/datepicker/css/datepicker.css">
+{% endblock %}
+{% block content %}
+<div class="form_contents">
+    <h1 class="form_title">売上(日報)入力</h1>
+    <form action="" method="POST">
+        {{ form.non_field_errors }}
+        <div class="field">
+            <p>{{ form.date.label }}</p>
+            {{ form.date }}
+            {{ form.date.errors }}
+        </div>
+        <div class="field">
+            <p>
+                {{ form.total_sales.label }}
+                <span class="helptext"><i class="fas fa-exclamation-circle"></i> {{ form.total_sales.help_text }}</span>
+            </p>
+            {{ form.total_sales }}
+            {{ form.total_sales.errors }}
+        </div>
+        <div class="field">
+            <p>
+                {{ form.lunch_sales.label }}(任意)
+                <span class="helptext"><i class="fas fa-exclamation-circle"></i> {{ form.lunch_sales.help_text }}</span>
+            </p>
+            {{ form.lunch_sales }}
+            {{ form.lunch_sales.errors }}
+        </div>
+        <div class="field">
+            <p>
+                {{ form.drink_sales.label }}
+                <span class="helptext"><i class="fas fa-exclamation-circle"></i> {{ form.drink_sales.help_text }}</span>
+            </p>
+            {{ form.drink_sales }}
+            {{ form.drink_sales.errors }}
+        </div>
+        <div class="field">
+            <p>
+                {{ form.dinner_guest.label }}
+                <span class="helptext"><i class="fas fa-exclamation-circle"></i> {{ form.dinner_guest.help_text }}</span>
+            </p>
+            {{ form.dinner_guest }}
+            {{ form.dinner_guest.errors }}
+        </div>
+        <div class="field">
+            <p>
+                {{ form.lunch_guest.label }}(任意)
+                <span class="helptext"><i class="fas fa-exclamation-circle"></i> {{ form.lunch_guest.help_text }}</span>
+            </p>
+            {{ form.lunch_guest }}
+            {{ form.lunch_guest.errors }}
+        </div>
+        <div class="field">
+            <p>
+                {{ form.bank_deposit.label }}(任意)
+                <span class="helptext"><i class="fas fa-exclamation-circle"></i> {{ form.bank_deposit.help_text }}</span>
+            </p>
+            {{ form.bank_deposit }}
+            {{ form.bank_deposit.errors }}
+        </div>
+        <div class="field submit_btn">
+            <button type="submit">送信</button>
+        </div>
+        {% csrf_token %}
+    </form>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://fengyuanchen.github.io/datepicker/js/datepicker.js"></script>
+<script src="https://fengyuanchen.github.io/datepicker/js/datepicker.ja-JP.js"></script>
+{% endblock %}
+{% block script %}
+<script>
+    $('#id_date').datepicker({
+        format: 'yyyy-mm-dd',
+        // language: 'ja-JP',
+    });
+</script>
+{% endblock %}

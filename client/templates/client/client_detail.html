@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/client/client_detail.css' %}">
+<link rel="stylesheet" href="{% static 'css/client/client_detail_rwd.css' %}">
+{% endblock %}
+{% block content %}
+<div class="rireki_contents">
+    <h1 class="clientList_title">{{ client.client_name }}様の来店日・メニューリスト<h1>
+    <table id=table_list>
+        <thead>
+            <tr>
+                <th>ID <i class="fas fa-sort"></i></th>
+                <th>来店日 <i class="fas fa-sort"></i></th>
+                <th>メニュー <i class="fas fa-sort"></i></th>
+                <th>更新・削除</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for visit in client.visits.all %}
+            <tr class="odd gradeX text-center">
+                <td>{{ visit.id}}</td>
+                <td>{{ visit.visit_date }}</td>
+                <td>{{ visit.menu | linebreaksbr}}</td>
+                <td>
+                    <a class="update_btn" href="{% url 'client:update_visit' visit.pk %}">更新</a>
+                    <a class="delete_btn" href="{% url 'client:delete_visit' visit.pk %}">削除</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="new_btn">
+    <a class="new_btn_link" href="{% url 'client:create_visit' client.pk %}"><i class="fas fa-fish new_icon"></i></a>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
+{% endblock %}
+{% block script %}
+<script>
+    jQuery(function($){
+        $.extend( $.fn.dataTable.defaults, {
+            language: {
+                    url: "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
+                }
+        });
+        $("#table_list").DataTable({
+            "searching": true,
+            "paging":   true,
+            "ordering": true,
+            "lengthChange": true,
+            "pageLength": 25,
+            "order": [[ 0, "desc" ]],
+        }).columns.adjust().draw();
+    });
+</script>
+{% endblock %}

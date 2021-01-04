@@ -1,0 +1,71 @@
+.content {
+    width: 100%;
+}
+.list_contents {
+    width: 400px;
+    margin: 50px auto;
+    color: #616161;
+}
+.list_title {
+    font-size: 22px;
+    text-align: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid;
+    padding-top: 50px;
+    padding-bottom: 5px;
+}
+input {
+    position: absolute;
+    left: -9999px;
+}
+.list_label {
+    display: block;
+    position: relative;
+    margin: 20px;
+    padding: 15px 30px 15px 62px;
+    border: 3px solid #fff;
+    color: #616161;
+    background-color: #e0e0e0;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color .2s, box-shadow .2s;
+}
+.list_label span {
+    float: right;
+}
+.list_label::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    left: 10px;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #fff;
+    border-radius: 20px;
+    transition: background-color .2s;
+}
+.list_label:hover, input:focus + .list_label {
+    box-shadow: 0 0 20px rgba(0, 0, 0, .2);
+}
+input:checked + .list_label {
+    background-color: #eca4a4;
+}
+input:checked + .list_label::before {
+    background-color: #fff;
+}
+.list_total {
+    font-size: 22px;
+    text-align: right;
+    margin-top: 30px;
+    border-top: 2px solid;
+    padding-top: 10px;
+}
+.memo {
+    margin-top: 30px;
+}
+.memo li {
+    margin-bottom: 10px;
+}

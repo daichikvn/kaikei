@@ -1,0 +1,55 @@
+@media screen and (max-width: 959px) {
+    .content_menu {
+        display: block;
+    }
+    .dashbord {
+        width: 100%;
+    }
+    .dashbord_title {
+        font-size: 22px;
+        margin-top: 100px;
+    }
+    .dashbord_content {
+        margin: 40px auto 0;
+        width: 90%;
+    }
+    .dashbord_price {
+        font-size: 22px;
+    }
+    .submit_btn {
+        padding: 15px;
+    }
+    .cost_btn {
+        padding: 15px;
+    }
+    .circle_chart_content {
+        width: 100%;
+    }
+    .circle_chart_title {
+        font-size: 22px;
+        margin-top:100px;
+    }
+    .circle_chart {
+        margin: 20px auto 0;
+    }
+    .bar_chart_content {
+        width: 100%;
+        margin: 50px auto 0;
+    }
+    .bar_chart_title {
+        font-size: 22px;
+        margin-top:100px;
+    }
+    .line_chart_content {
+        width: 100%;
+        margin: 50px auto;
+    }
+    .line_chart_title {
+        font-size: 22px;
+        margin-top:100px;
+    }
+    .new_btn {
+        right: -20px;
+        bottom: -20px;
+    }
+}

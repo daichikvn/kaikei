@@ -1,0 +1,75 @@
+.content_menu {
+    display: flex;
+    width: 100%;
+}
+.dashbord {
+    width: 50%;
+    text-align: center;
+    color: #616161;
+}
+.dashbord_title {
+    font-size: 35px;
+    font-weight: bold;
+    margin-top: 50px;
+}
+.dashbord_content {
+    margin: 50px auto 0;
+    width: 400px;
+    text-align: left;
+    font-size: 20px;
+}
+.dashbord_content ul li {
+    margin-bottom: 40px;
+    border-bottom: 2px solid #dadada;
+    display: flex;
+}
+.dashbord_content ul li span {
+    width: 50%;
+}
+.dashbord_price {
+    font-size: 30px;
+    font-weight: bold;
+    color: #000;
+    text-align: right;
+}
+.form_contents {
+    display: flex;
+    width: 100%;
+    margin: 0 auto;
+}
+.btn_list {
+    width: 100%;
+    margin: 0 auto;
+}
+.submit_btn {
+    display: inline-block;
+    background-color: #727d8f;
+    color: #fff;
+    padding: 20px 30px;
+    border-radius: 5px;
+    font-size: 20px;
+}
+.accounts_btn {
+    display: inline-block;
+    background-color: #19448e;
+    color: #fff;
+    padding: 20px 30px;
+    border-radius: 5px;
+    font-size: 20px;
+}
+.line_chart_content {
+    width: 90%;
+    margin: 100px auto 50px;
+    text-align: center;
+    color: #616161;
+}
+.line_chart_title {
+    font-size: 35px;
+    font-weight: bold;
+    margin-top: 50px;
+}
+.line_chart {
+    position: relative;
+    width: 100%;
+    margin: 20px auto 0;
+}

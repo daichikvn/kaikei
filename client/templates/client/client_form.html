@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/client/client_form.css' %}">
+{% endblock %}
+{% block content %}
+<div class="form_contents">
+    <h1 class="form_title">顧客情報入力</h1>
+    <form action="" method="POST">
+        {{ form.non_field_errors }}
+        <div class="field">
+            <p>{{ form.client_name.label }}</p>
+            {{ form.client_name }}
+            <div class="js-suggestions"></div>
+            {{ form.client_name.errors }}
+        </div>
+        <div class="field">
+            <p>{{ form.receipt_name.label }}(任意)</p>
+            {{ form.receipt_name }}
+            {{ form.receipt_name.errors }}
+        </div>
+        <div class="field">
+            <p>{{ form.tel_number.label }}(任意)</p>
+            {{ form.tel_number }}
+            {{ form.tel_number.errors }}
+        </div>
+        <div class="field">
+            <p>{{ form.memo.label }}(任意)</p>
+            {{ form.memo }}
+            {{ form.memo.errors }}
+        </div>
+        <div class="field submit_btn">
+            <button type="submit">送信</button>
+        </div>
+        {% csrf_token %}
+    </form>
+</div>
+{% endblock %}
+{% block extra_js %}
+{% endblock %}
+{% block script %}
+<script>
+    const list = [
+        {% for name in client_name_list %}
+            "{{name}}",
+        {% endfor %}
+    ];
+    const elInput = document.querySelector("#id_client_name");
+    const elSuggestions = document.querySelector(".js-suggestions");
+    const state = {
+        inputValue: elInput.value,
+        inputting: false
+    };
+    const dataMap = new WeakMap();
+
+    function render() {
+        renderInput();
+        renderSuggestions();
+    }
+
+    function renderInput() {
+        elInput.value = state.inputValue;
+    }
+
+    function renderSuggestions() {
+        const elNewList = document.createElement("ul");
+        if (state.inputting) {
+            list.filter(text => text.includes(state.inputValue)).forEach(text => {
+            const elItem = document.createElement("li");
+            dataMap.set(elItem, { text });
+            elItem.textContent = text;
+            elItem.addEventListener("click", handleClickItem);
+            elNewList.appendChild(elItem);
+            });
+        }
+        elSuggestions.innerHTML = "";
+        elSuggestions.appendChild(elNewList);
+    }
+
+    function handleClickItem(e) {
+        state.inputValue = dataMap.get(e.currentTarget).text;
+        state.inputting = false;
+
+        render();
+    }
+
+    elInput.addEventListener("input", () => {
+        state.inputValue = elInput.value;
+        state.inputting = elInput.value !== "";
+
+        renderSuggestions();
+    });
+</script>
+{% endblock %}

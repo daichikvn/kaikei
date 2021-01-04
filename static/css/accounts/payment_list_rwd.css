@@ -1,0 +1,8 @@
+@media screen and (max-width: 959px) {
+    .list_contents {
+        width: 300px;
+    }
+    .list_label {
+        margin: 20px 0;
+    }
+}

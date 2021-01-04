@@ -1,0 +1,122 @@
+.content_menu {
+    display: flex;
+    width: 100%;
+}
+.dashbord {
+    width: 50%;
+    text-align: center;
+    color: #616161;
+}
+.dashbord_title {
+    font-size: 35px;
+    font-weight: bold;
+    margin-top: 50px;
+}
+.dashbord_content {
+    margin: 50px auto 0;
+    width: 400px;
+    text-align: left;
+    font-size: 20px;
+}
+.dashbord_content ul li {
+    margin-bottom: 40px;
+    border-bottom: 2px solid #dadada;
+    display: flex;
+}
+.dashbord_content ul li span {
+    width: 50%;
+}
+.dashbord_price {
+    font-size: 30px;
+    font-weight: bold;
+    color: #000;
+    text-align: right;
+}
+.form_contents {
+    display: flex;
+    width: 100%;
+    margin: 0 auto;
+}
+.btn_list {
+    width: 100%;
+    margin: 0 auto;
+}
+.submit_btn {
+    display: inline-block;
+    background-color: #727d8f;
+    color: #fff;
+    padding: 20px 30px;
+    border-radius: 5px;
+    font-size: 20px;
+}
+.sales_btn {
+    display: inline-block;
+    background-color: #19448e;
+    color: #fff;
+    padding: 20px 30px;
+    border-radius: 5px;
+    font-size: 20px;
+}
+.circle_chart_content {
+    width: 50%;
+    text-align: center;
+    color: #616161;
+}
+.circle_chart_title {
+    font-size: 35px;
+    font-weight: bold;
+    margin-top: 50px;
+}
+.circle_chart {
+    position: relative;
+    width: 100%;
+    margin: 50px auto 0;
+}
+.bar_chart_content {
+    width: 90%;
+    margin: 100px auto 0;
+    text-align: center;
+    color: #616161;
+}
+.mb {
+    margin: 100px auto 50px;
+}
+.bar_chart_title {
+    font-size: 35px;
+    font-weight: bold;
+    margin-top: 50px;
+}
+.bar_chart {
+    position: relative;
+    width: 100%;
+    margin: 20px auto 0;
+}
+.new_btn {
+    box-sizing: border-box;
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 100px;
+    height: 100px;
+    border: 5px solid #19448e;
+    background: #19448e;
+    border-radius: 50%;
+}
+.new_btn:hover {
+    background: #fff;
+}
+.new_btn_link {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    text-align: center;
+}
+.new_icon {
+    font-size: 50px;
+    color: #fff;
+    padding: 20px;
+}
+.new_icon:hover {
+    color: #19448e;
+}

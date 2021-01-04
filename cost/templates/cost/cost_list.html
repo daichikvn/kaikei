@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/cost/cost_list.css' %}">
+<link rel="stylesheet" href="{% static 'css/cost/cost_list_rwd.css' %}">
+{% endblock %}
+{% block content %}
+<div class="rireki_contents">
+    <table id=table_list>
+        <thead>
+            <tr>
+                <th>ID <i class="fas fa-sort"></i></th>
+                <th>日付 <i class="fas fa-sort"></i></th>
+                <th>店名 <i class="fas fa-sort"></i></th>
+                <th>金額 <i class="fas fa-sort"></i></th>
+                <th>備考 <i class="fas fa-sort"></i></th>
+                <th>更新・削除</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for cost in object_list %}
+            <tr class="odd gradeX text-center">
+                <td>{{ cost.id}}</td>
+                <td>{{ cost.date}}</td>
+                <td>{{ cost.shop }}</td>
+                <td><i class="fas fa-yen-sign"></i> {{ cost.price }}</td>
+                <td>{{ cost.memo }}</td>
+                <td>
+                    <a class="update_btn" href="{% url 'cost:cost_update' cost.pk %}">更新</a>
+                    <a class="delete_btn" href="{% url 'cost:cost_delete' cost.pk %}">削除</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
+{% endblock %}
+{% block script %}
+<script>
+    jQuery(function($){
+        $.extend( $.fn.dataTable.defaults, {
+            language: {
+                    url: "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
+                }
+        });
+        $("#table_list").DataTable({
+            "searching": true,
+            "paging":   false,
+            "ordering": true,
+            "lengthChange": false,
+            // "pageLength": 25,
+            "order": [[ 0, "desc" ]],
+        }).columns.adjust().draw();
+    });
+</script>
+{% endblock %}

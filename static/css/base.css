@@ -1,0 +1,71 @@
+body {
+    background-color: #eeeeee;
+    box-sizing: border-box;
+    font-family: 'Avenir','Helvetica Neue','Helvetica','Arial','Hiragino Sans','ヒラギノ角ゴシック',YuGothic,'Yu Gothic','メイリオ', Meiryo,'ＭＳ Ｐゴシック','MS PGothic';
+}
+a {
+    text-decoration: none;
+}
+/*                             */
+.container {
+    width: 100%;
+}
+.header {
+    background-color: #19448e;
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0px;
+    z-index: 100;
+    width: 100%;
+}
+.rwd_header {
+    display: none;
+}
+.header_left {
+    width: 300px;
+}
+.logo {
+    font-size: 24px;
+    padding: 20px 0 20px 30px;
+}
+.logo a {
+    color: #fff;
+}
+.header_right {
+    width: 100%;
+    text-align: right;
+}
+.header_right ul {
+    height: 100%;
+}
+.header_right ul li {
+    display: inline-block;
+    margin: auto 10px;
+    height: 100%;
+
+}
+.header_right ul li a {
+    display: inline-block;
+    font-size: 20px;
+    color: #fff;
+    height: 59px;
+    line-height: 59px;
+}
+.logout {
+    border-bottom: 5px #fff solid;
+}
+.content {
+    width: 100%;
+    min-height: calc(100vh - 64px - 60px);
+    margin-top: 64px;
+}
+.footer {
+    background-color: #727d8f;
+    height: 60px;
+    text-align: center;
+}
+.footer p {
+    color: #fff;
+    padding: 20px 0;
+}

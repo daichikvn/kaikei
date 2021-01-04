@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/client/done.css' %}">
+<link rel="stylesheet" href="{% static 'css/client/done_rwd.css' %}">
+{% endblock %}
+{% block content %}
+<div class="done_content">
+    <div class="done_contents">
+        <h3><i class="fas fa-server"></i>削除完了</h3>
+        <p><i class="fas fa-check-double"></i>データ削除が正常終了しました。</p>
+        <a href="{% url 'client:client_list' %}">履歴一覧へ</a>
+    </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+{% endblock %}
+{% block script %}
+{% endblock %}

@@ -1,0 +1,30 @@
+@media screen and (max-width: 959px) {
+    .content_menu {
+        display: block;
+    }
+    .dashbord {
+        width: 100%;
+    }
+    .dashbord_title {
+        font-size: 22px;
+    }
+    .dashbord_content {
+        width: 90%;
+    }
+    .dashbord_price {
+        font-size: 22px;
+    }
+    .submit_btn {
+        padding: 15px;
+    }
+    .accounts_btn {
+        padding: 15px;
+    }
+    .line_chart_content {
+        width: 100%;
+        margin: 50px auto;
+    }
+    .line_chart_title {
+        font-size: 22px;
+    }
+}

@@ -1,0 +1,13 @@
+.vscode
+.DS_Store
+.git
+
+#python
+__pycache__
+
+#pipenv
+Pipfile.lock
+
+#app
+db.sqlite3
+local_settings.py

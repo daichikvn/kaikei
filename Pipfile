@@ -1,0 +1,19 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+django = "==2.2.8"
+openpyxl = "*"
+django-import-export = "*"
+uwsgi = "*"
+
+[requires]
+python_version = "3.7"
+
+[scripts]
+server = "python manage.py runserver 0:8888"
+deploy = "uwsgi --socket kaikei.sock --module kaikei.wsgi --chmod-socket=666"

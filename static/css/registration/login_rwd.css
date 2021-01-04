@@ -1,0 +1,6 @@
+@media screen and (max-width: 959px) {
+    .common-form {
+        width: 80%;
+        padding: 100px 0 0;
+    }
+}

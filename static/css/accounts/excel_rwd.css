@@ -1,0 +1,5 @@
+@media screen and (max-width: 959px) {
+    .form_contents {
+        display: block;
+    }
+}

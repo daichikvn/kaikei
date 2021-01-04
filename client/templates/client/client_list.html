@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/client/client_list.css' %}">
+<link rel="stylesheet" href="{% static 'css/client/client_list_rwd.css' %}">
+{% endblock %}
+{% block content %}
+<div class="rireki_contents">
+    <h1 class="clientList_title">顧客リスト<h1>
+    <table id=table_list>
+        <thead>
+            <tr>
+                <th>ID <i class="fas fa-sort"></i></th>
+                <th>顧客名 <i class="fas fa-sort"></i></th>
+                <th>領収書宛名 <i class="fas fa-sort"></i></th>
+                <th>連絡先 <i class="fas fa-sort"></i></th>
+                <th>備考 <i class="fas fa-sort"></i></th>
+                <th>来店日・メニュー</th>
+                <th>更新・削除</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for client in object_list %}
+            <tr class="odd gradeX text-center">
+                <td>{{ client.id}}</td>
+                <td>{{ client.client_name }}様</td>
+                <td>{{ client.receipt_name | linebreaksbr }}</td>
+                <td>{{ client.tel_number }}</td>
+                <td>{{ client.memo | linebreaksbr }}</td>
+                <td><a class="detail_btn" href="{% url 'client:client_detail' client.pk %}">来店日・メニュー</a></td>
+                <td>
+                    <a class="update_btn" href="{% url 'client:client_update' client.pk %}">更新</a>
+                    <a class="delete_btn" href="{% url 'client:client_delete' client.pk %}">削除</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="new_btn">
+    <a class="new_btn_link" href="{% url 'client:client_create' %}"><i class="fas fa-user-alt new_icon"></i></a>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
+{% endblock %}
+{% block script %}
+<script>
+    jQuery(function($){
+        $.extend( $.fn.dataTable.defaults, {
+            language: {
+                    url: "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
+                }
+        });
+        $("#table_list").DataTable({
+            "searching": true,
+            "paging":   false,
+            "ordering": true,
+            "lengthChange": false,
+            "order": [[ 0, "desc" ]],
+        }).columns.adjust().draw();
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,190 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/sales/index.css' %}">
+<link rel="stylesheet" href="{% static 'css/sales/index_rwd.css' %}">
+{% endblock %}
+{% block content %}
+<div class="content_menu">
+    <div class="dashbord">
+        <p class="dashbord_title">売上ダッシュボード ({{ this_month }}月)</p>
+        <div class="dashbord_content">
+            <ul>
+                <li><span>売上総額：</span><span class="dashbord_price"><i class="fas fa-yen-sign"></i>{{ total | intcomma }}</span></li>
+                <li><span>フード：</span><span class="dashbord_price"><i class="fas fa-yen-sign"></i>{{ food | intcomma }}</span></li>
+                <li><span>ドリンク：</span><span class="dashbord_price"><i class="fas fa-yen-sign"></i>{{ drink | intcomma }}</span></li>
+                <li><span>ランチ：</span><span class="dashbord_price"><i class="fas fa-yen-sign"></i>{{ lunch | intcomma }}</span></li>
+                <li><span>ディナー：</span><span class="dashbord_price"><i class="fas fa-yen-sign"></i>{{ dinner | intcomma }}</span></li>
+                <li><span>入客数：</span><span class="dashbord_price">{{ guest }}人</span></li>
+                <li><span>一日平均/営業日数：</span><span class="dashbord_price"><i class="fas fa-yen-sign"></i>{{ average | intcomma }}</span></li>
+                <li><span>営業日数：</span><span class="dashbord_price">{{ sales_day }}日</span></li>
+                <li><span>銀行入金額：</span><span class="dashbord_price"><i class="fas fa-yen-sign"></i>{{ deposit | intcomma }}</span></li>
+            </ul>
+        </div>
+        <div class="form_contents">
+            <div class="btn_list">
+                <a class="submit_btn" href="{% url 'sales:index' %}?param=previous&year={{ this_year }}&month={{ this_month }}"><< {{ previous_month }}月</a>
+                <a class="sales_btn" href="{% url 'sales:sales_list' %}?param=param&year={{ this_year }}&month={{ this_month }}">{{ this_month }}月詳細</a>
+                <a class="submit_btn" href="{% url 'sales:index' %}?param=next&year={{ this_year }}&month={{ this_month }}">{{ next_month }}月 >></a>
+            </div>
+        </div>
+    </div>
+    <div class="circle_chart_content">
+        <p class="circle_chart_title">{{ this_month }}月度 カテゴリ割合</p>
+        <canvas id='CircleChart' class="circle_chart"></canvas>
+    </div>
+</div>
+<div class="bar_chart_content">
+    <p class="bar_chart_title">{{ this_year }}年度 売上月別推移 ({{ previous_year }}年度 比較)</p>
+    <canvas id='BarChart' class="bar_chart"></canvas>
+</div>
+<div class="bar_chart_content mb">
+    <p class="bar_chart_title">{{ this_year }}年{{ this_month }}月度 日毎売上 ({{ previous_year }}年{{ this_month }}月度 比較)</p>
+    <canvas id='BarChartDay' class="bar_chart"></canvas>
+</div>
+<div class="new_btn">
+    <a class="new_btn_link" href="{% url 'sales:sales_create' %}"><i class="fas fa-dollar-sign new_icon"></i></a>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+{% endblock %}
+{% block script %}
+<script>
+    var ctx = document.getElementById('CircleChart').getContext('2d');
+    var data = [[
+                    {% for key, value in category_dict.items %}
+                        '{{key}}',
+                    {% endfor %}
+                ],
+                [
+                    {% for key, value in category_dict.items %}
+                        {{value}},
+                    {% endfor %}
+                ]]
+    var myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: data[0],
+            datasets: [{
+                data: data[1],
+                backgroundColor: [
+                    "rgba(255,165,0,0.8)",
+                    "rgba(54,164,235,0.8)",
+                ],
+            },]
+        }
+    });
+</script>
+<script>
+    var ctx = document.getElementById("BarChart").getContext('2d');
+    var DiskChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels:["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
+            datasets:[
+                {
+                    label: "{{ previous_year }}",
+                    data:[
+                    {% for yyyy_mm, total in past_matrix_list %}
+                        {{total}},
+                    {% endfor %}
+                    ],
+                    backgroundColor: "rgba(192, 192, 192, 0.8)"
+                },
+                {
+                    label: "{{ this_year }}",
+                    data:[
+                    {% for yyyy_mm, total in matrix_list %}
+                        {{total}},
+                    {% endfor %}
+                    ],
+                    backgroundColor: "rgba(255, 165, 0, 0.8)"
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: '{{ previous_year }}年/{{ this_year }}年'
+                    },
+                    ticks: {
+                        maxRotation:0,
+                        minRotation:0
+                    },
+                }],
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: '売上総額(円)'
+                    },
+                    ticks:{
+                        min: 0,
+                    }
+                }],
+            },
+        }
+    });
+</script>
+<script>
+    var ctx = document.getElementById("BarChartDay").getContext('2d');
+    var DiskChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels:[
+                {% for day, price in day_matrix_list %}
+                    {{day}},
+                {% endfor %}
+            ],
+            datasets:[
+                {
+                    label: "{{ previous_year }}/{{ this_month }}",
+                    data:[
+                    {% for day, price in past_day_matrix_list %}
+                        {{price}},
+                    {% endfor %}
+                    ],
+                    backgroundColor: "rgba(192, 192, 192, 0.8)"
+                },
+                {
+                    label: "{{ this_year }}/{{ this_month }}",
+                    data:[
+                    {% for day, price in day_matrix_list %}
+                        {{price}},
+                    {% endfor %}
+                    ],
+                    backgroundColor: "rgba(255, 165, 0, 0.8)"
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: '日'
+                    },
+                    ticks: {
+                        maxRotation:0,
+                        minRotation:0
+                    },
+                }],
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: '一日の売上(円)'
+                    },
+                    ticks:{
+                        min: 0,
+                    }
+                }],
+            },
+        }
+    });
+</script>
+{% endblock %}

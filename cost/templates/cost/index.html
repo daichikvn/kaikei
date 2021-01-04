@@ -1,0 +1,210 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/cost/index.css' %}">
+<link rel="stylesheet" href="{% static 'css/cost/index_rwd.css' %}">
+{% endblock %}
+{% block content %}
+<div class="content_menu">
+    <div class="dashbord">
+        <p class="dashbord_title">経費ダッシュボード ({{ this_month }}月)</p>
+        <div class="dashbord_content">
+            <ul>
+                <li><span>経費総額：</span><span class="dashbord_price"><i class="fas fa-yen-sign"></i>{{ total | intcomma }}</span></li>
+                <li><span>食材：</span><span class="dashbord_price"><i class="fas fa-yen-sign"></i>{{ food | intcomma }}</span></li>
+                <li><span>ドリンク：</span><span class="dashbord_price"><i class="fas fa-yen-sign"></i>{{ drink | intcomma }}</span></li>
+                <li><span>その他：</span><span class="dashbord_price"><i class="fas fa-yen-sign"></i>{{ other | intcomma }}</span></li>
+                <li><span>現金仕入れ(0)：</span><span class="dashbord_price"><i class="fas fa-yen-sign"></i>{{ cash | intcomma }}</span></li>
+                <li><span>現金仕入れ(食材)：</span><span class="dashbord_price"><i class="fas fa-yen-sign"></i>{{ cash_food | intcomma }}</span></li>
+                <li><span>納品書(1)：</span><span class="dashbord_price"><i class="fas fa-yen-sign"></i>{{ delivery | intcomma }}</span></li>
+                <li><span>業者仕入れ(食材)：</span><span class="dashbord_price"><i class="fas fa-yen-sign"></i>{{ delivery_food | intcomma }}</span></li>
+            </ul>
+        </div>
+        <div class="form_contents">
+            <div class="btn_list">
+                <a class="submit_btn" href="{% url 'cost:index' %}?param=previous&year={{ this_year }}&month={{ this_month }}"><< {{ previous_month }}月</a>
+                <a class="cost_btn" href="{% url 'cost:cost_list' %}?param=param&year={{ this_year }}&month={{ this_month }}">{{ this_month }}月詳細</a>
+                <a class="submit_btn" href="{% url 'cost:index' %}?param=next&year={{ this_year }}&month={{ this_month }}">{{ next_month }}月 >></a>
+            </div>
+        </div>
+    </div>
+    <div class="circle_chart_content">
+        <p class="circle_chart_title">{{ this_month }}月度 カテゴリ割合</p>
+        <canvas id='CircleChart' class="circle_chart"></canvas>
+    </div>
+</div>
+<div class="bar_chart_content">
+    <p class="bar_chart_title">{{ this_year }}年度 経費月別推移({{ previous_year }}年度比較)</p>
+    <canvas id='BarChart' class="bar_chart"></canvas>
+</div>
+<div class="line_chart_content">
+    <p class="line_chart_title">{{ this_year }}年度 カテゴリー毎経費月別推移</p>
+    <canvas id='LineChart' class="line_chart"></canvas>
+</div>
+<div class="new_btn">
+    <a class="new_btn_link" href="{% url 'cost:cost_create' %}"><i class="fas fa-cart-arrow-down new_icon"></i></a>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+{% endblock %}
+{% block script %}
+<script>
+    var ctx = document.getElementById('CircleChart').getContext('2d');
+    var data = [[
+                    {% for key, value in category_dict.items %}
+                        '{{key}}',
+                    {% endfor %}
+                ],
+                [
+                    {% for key, value in category_dict.items %}
+                        {{value}},
+                    {% endfor %}
+                ]]
+    var myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: data[0],
+            datasets: [{
+                data: data[1],
+                backgroundColor: [
+                    "rgba(46, 204, 113, 0.8)",
+                    "rgba(241, 196, 15, 0.8)",
+                    "rgba(155, 89, 182, 0.8)",
+                    "rgba(52, 73, 94, 0.8)",
+                    "rgba(214, 48, 49, 0.8)",
+                    "rgba(230, 126, 34, 0.8)",
+                    "rgba(231, 76, 60, 0.8)",
+                    "rgba(189, 195, 199, 0.8)",
+                    "rgba(232, 67, 147, 0.8)",
+                    "rgba(26, 188, 156, 0.8)",
+                    "rgba(234,210,173, 0.8)",
+                    "rgba(52, 152, 219, 0.8)",
+                    "rgba(149, 165, 166, 0.8)",
+                    "rgba(255, 255, 255, 0.8)"
+                ],
+            },]
+        }
+    });
+</script>
+<script>
+    var ctx = document.getElementById("BarChart").getContext('2d');
+    var DiskChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels:["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
+            datasets:[
+                {
+                    label: "{{ previous_year }}年度",
+                    data:[
+                    {% for yyyy_mm, total in past_matrix_list %}
+                        {{total}},
+                    {% endfor %}
+                    ],
+                    backgroundColor: "rgba(192, 192, 192, 0.8)"
+                },
+                {
+                    label: "{{ this_year }}年度",
+                    data:[
+                    {% for yyyy_mm, total in matrix_list %}
+                        {{total}},
+                    {% endfor %}
+                    ],
+                    backgroundColor: "rgba(65, 105, 225, 0.8)"
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: '{{ previous_year }}年/{{ this_year }}年'
+                    },
+                    ticks: {
+                        maxRotation:0,
+                        minRotation:0
+                    },
+                }],
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: '経費総額(円)'
+                    },
+                    ticks:{
+                        min: 0,
+                    }
+                }],
+            },
+        }
+    });
+</script>
+<script>
+    var ctx = document.getElementById("LineChart").getContext('2d');
+    var DiskChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [
+                {% for item in x_label %}
+                    '{{item}}',
+                {% endfor %}
+            ],
+            datasets: [
+                {% for category_name in category_list %}
+                    {
+                        label: "{{category_name}}",
+                        fill: false,
+                        {% for category, color in border_color %}
+                            {% if category == category_name %}
+                                borderColor : "rgba({{color}})",
+                            {% endif %}
+                        {% endfor %}
+                        {% for category, color in background_color %}
+                            {% if category == category_name %}
+                                backgroundColor : "rgba({{color}})",
+                            {% endif %}
+                        {% endfor %}
+                        data: [
+                            {% for time_label in x_label %}
+                                {% for date, category, total in category_matrix_list %}
+                                    {% if category == category_name %}
+                                        {% if date == time_label %}
+                                            {{total}},
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                        ],
+                    },
+                {% endfor %}
+            ]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: '{{ this_year }}年'
+                    },
+                    ticks: {
+                        maxRotation:0,
+                        minRotation:0
+                    },
+                }],
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: '合計金額(円)'
+                    },
+                    ticks:{
+                        min: 0,
+                    }
+                }],
+            },
+        }
+    });
+</script>
+{% endblock %}

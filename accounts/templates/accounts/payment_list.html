@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/accounts/payment_list.css' %}">
+<link rel="stylesheet" href="{% static 'css/accounts/payment_list_rwd.css' %}">
+{% endblock %}
+{% block content %}
+<div class="content">
+    <div class="list_contents">
+        <h1 class="list_title">支払いリスト</h1>
+        {% for key, value in shop_monthly_data.items %}
+            <input id="{{ key }}" type="checkbox">
+            <label for="{{ key }}" class="list_label">
+                <i class="fas fa-store"></i> {{ key }}
+                <span><i class="fas fa-yen-sign"></i> {{ value | intcomma }}</span>
+            </label>
+        {% endfor %}
+        <p class="list_total">合計金額：<i class="fas fa-yen-sign"></i>{{ delivery_total | intcomma }}</p>
+        {% comment %} <ul class="memo">
+            <li><i class="fas fa-check"></i> 店名<br>銀行　支店　普通00000000</li>
+            <li><i class="fas fa-check"></i> 店名<br>銀行　支店　普通00000000</li>
+        </ul> {% endcomment %}
+    </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+{% endblock %}
+{% block script %}
+{% endblock %}

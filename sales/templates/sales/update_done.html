@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/sales/done.css' %}">
+<link rel="stylesheet" href="{% static 'css/sales/done_rwd.css' %}">
+{% endblock %}
+{% block content %}
+<div class="done_content">
+    <div class="done_contents">
+        <h3><i class="fas fa-server"></i>更新完了</h3>
+        <p><i class="fas fa-check-double"></i>データ更新が正常終了しました。</p>
+        <a href="{% url 'sales:sales_list' %}">履歴一覧へ</a><a href="{% url 'sales:index' %}">売上TOP</a>
+    </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+{% endblock %}
+{% block script %}
+{% endblock %}

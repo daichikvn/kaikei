@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/accounts/import.css' %}">
+{% endblock %}
+{% block content %}
+<div class="form_contents">
+    <h1 class="form_title">CSVインポート</h1>
+    <form action="" method="POST" enctype="multipart/form-data">
+        {{ form.non_field_errors }}
+        <div class="field">
+            <span class="helptext"><i class="fas fa-exclamation-circle"></i> {{ form.file.help_text }}</span>
+            {{ form.file }}
+            {{ form.file.errors }}
+        </div>
+        <div class="field submit_btn">
+            <button type="submit">送信</button>
+        </div>
+        {% csrf_token %}
+    </form>
+</div>
+{% endblock %}
+{% block extra_js %}
+{% endblock %}
+{% block script %}
+{% endblock %}

@@ -1,0 +1,123 @@
+.rireki_contents {
+    width: 90%;
+    margin: 50px auto 0;
+    padding: 50px 0;
+}
+.clientList_title {
+    font-size: 35px;
+    text-align: center;
+    color: #616161;
+    margin-bottom: 30px;
+}
+table{
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+#table_list tr:hover td {
+    background-color: #696969;
+    color: #fff;
+}
+table th,table td{
+    padding: 10px 0;
+    text-align: center;
+}
+tbody tr:nth-child(odd){
+    background-color: #fff
+}
+table td:nth-child(1){
+    position: relative;
+    text-align: left;
+    background-color: #696969;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
+table td:nth-child(1):after{
+    display: block;
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    top:calc(50% - 10px);
+    right:-10px;
+    border-left: 10px solid #696969;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+}
+.detail_btn {
+    display: inline-block;
+    background-color: #228b22;
+    color: #fff;
+    padding: 7px 10px;
+    border-radius: 5px;
+}
+.update_btn {
+    display: inline-block;
+    background-color: #00348f;
+    color: #fff;
+    padding: 7px 10px;
+    border-radius: 5px;
+}
+.delete_btn {
+    display: inline-block;
+    background-color: #e60033;
+    color: #fff;
+    padding: 7px 10px;
+    border-radius: 5px;
+}
+.row {
+    display: flex;
+    justify-content: space-between;
+}
+.form-control {
+    width: 200px;
+    height: 30px;
+    cursor: pointer;
+    background-color: #fff;
+    border-radius: 20px;
+    border: 2px solid #727d8f;
+    outline: none;
+}
+.dataTables_info {
+    padding: 10px;
+}
+.paginate_button {
+    display: inline-block;
+    margin-left: 5px;
+    background-color: #727d8f;
+    padding: 10px;
+    border-radius: 5px;
+}
+.paginate_button a {
+    color: #fff;
+}
+.new_btn {
+    box-sizing: border-box;
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 100px;
+    height: 100px;
+    border: 5px solid #19448e;
+    background: #19448e;
+    border-radius: 50%;
+}
+.new_btn:hover {
+    background: #fff;
+}
+.new_btn_link {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    text-align: center;
+}
+.new_icon {
+    font-size: 50px;
+    color: #fff;
+    padding: 20px;
+}
+.new_icon:hover {
+    color: #19448e;
+}

@@ -1,0 +1,30 @@
+<div class="menus">
+    <div class="menus_up">
+        <div class="menu cost">
+            <span class="icon"><i class="fas fa-cart-arrow-down"></i></span>
+            <br>
+            <p>経費詳細</p>
+            <a href="{% url 'cost:index' %}"></a>
+        </div>
+        <div class="menu sales">
+            <span class="icon"><i class="fas fa-comment-dollar"></i></span>
+            <br>
+            <p>売上詳細</p>
+            <a href="{% url 'sales:index' %}"></a>
+        </div>
+    </div>
+    <div class="menus_down">
+        <div class="menu payment">
+            <span class="icon"><i class="fas fa-university"></i></span>
+            <br>
+            <p>支払リスト作成</p>
+            <a class="" href="{% url 'accounts:payment' %}"></a>
+        </div>
+        <div class="menu client">
+            <span class="icon"><i class="fas fa-user-circle"></i></span>
+            <br>
+            <p>顧客情報</p>
+            <a class="" href="{% url 'client:client_list' %}"></a>
+        </div>
+    </div>
+</div>

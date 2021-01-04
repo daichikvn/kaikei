@@ -1,0 +1,36 @@
+.done_content {
+    padding-top: 50px;
+}
+.done_contents {
+    width: 300px;
+    margin: 50px auto;
+    background-color: #f0f8ff;
+    padding: 30px 100px;
+}
+.done_contents h3 {
+    font-size: 25px;
+}
+.done_contents p {
+    padding: 30px 0 20px;
+    font-size: 16px;
+    border-top: 1px solid;
+}
+.done_contents a {
+    display: inline-block;
+    padding: 10px 30px;
+    margin: 10px 10px 0 0;
+    border-radius: 5px;
+    background-color: #19448e;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+}
+.confirm_btn {
+    background-color: #e60033;
+    color: #fff;
+    padding: 10px 30px;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+    font-size: 16px;
+}
